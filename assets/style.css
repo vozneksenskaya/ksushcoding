@@ -1,0 +1,224 @@
+/*
+  Общие стили для всех инструкций.
+  Единственный источник оформления — сюда, а не в <style> внутри страниц.
+  Без внешних зависимостей: шрифты только системные.
+*/
+
+:root{
+  --paper:#ffffff;
+  --ink:#12202e;
+  --ink-soft:#4a5b6c;
+  --rule:#dbe3ea;
+  --wash:#f2f5f8;
+  --accent:#1f3fd0;
+  --accent-wash:#e9edff;
+  --warn:#8f4e00;
+  --warn-wash:#fff3e0;
+  --danger:#9d211b;
+  --danger-wash:#fdeceb;
+  --ok:#136448;
+  --ok-wash:#e6f3ed;
+  --maxw:38rem;
+}
+
+*{box-sizing:border-box;min-width:0}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+body{
+  margin:0;
+  overflow-x:hidden;
+  overflow-wrap:break-word;
+  word-break:normal;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  letter-spacing:-0.004em;
+}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+/* ---------- шапка ---------- */
+header.hero{padding:56px 0 28px;border-bottom:1px solid var(--rule)}
+.kicker{font-size:14px;font-weight:600;color:var(--ink-soft);margin:0 0 14px}
+h1{
+  font-size:clamp(34px,9vw,46px);
+  line-height:1.04;
+  font-weight:900;
+  letter-spacing:-0.03em;
+  margin:0 0 16px;
+}
+.lede{font-size:19px;color:var(--ink-soft);margin:0 0 28px;max-width:32rem}
+
+.route{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.route li{
+  display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;
+  padding:11px 2px;border-bottom:1px solid var(--rule);
+}
+.route b{font-weight:700;color:var(--accent);flex:0 0 auto;min-width:1.2em;font-size:15px}
+.route a{flex:1 1 12rem;min-width:0}
+.route span{display:inline}
+.route em{font-style:normal;color:var(--ink-soft);font-size:14px;white-space:nowrap}
+.route a{color:inherit;text-decoration:none}
+.route a:hover span{text-decoration:underline}
+
+/* ---------- оглавление на главной ---------- */
+.index-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.index-list li{border-bottom:1px solid var(--rule);padding:18px 2px}
+.index-list a{display:block;color:inherit;text-decoration:none;font-size:19px;font-weight:700;letter-spacing:-0.01em}
+.index-list a:hover{text-decoration:underline}
+.index-list p{margin:6px 0 0;color:var(--ink-soft);font-size:15.5px}
+.index-list em{display:block;margin-top:6px;font-style:normal;color:var(--ink-soft);font-size:14px}
+
+/* ---------- липкая навигация ---------- */
+nav.chips{
+  position:sticky;top:0;z-index:20;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:saturate(140%) blur(8px);
+  border-bottom:1px solid var(--rule);
+  margin-top:36px;
+}
+.chips-scroll{
+  display:flex;gap:8px;overflow-x:auto;padding:10px 20px;
+  max-width:var(--maxw);margin:0 auto;
+  scrollbar-width:none;
+}
+.chips-scroll::-webkit-scrollbar{display:none}
+.chip{
+  flex:0 0 auto;font-size:14px;font-weight:600;
+  padding:6px 12px;border:1px solid var(--rule);border-radius:999px;
+  color:var(--ink-soft);text-decoration:none;background:var(--paper);
+}
+
+/* ---------- переключатель «по шагам» ---------- */
+.mode-toggle{
+  flex:0 0 auto;cursor:pointer;
+  font:inherit;font-size:14px;font-weight:600;
+  color:var(--accent);background:var(--accent-wash);
+  border:1px solid var(--rule);border-radius:999px;
+  padding:6px 12px;
+}
+.mode-toggle[aria-pressed="true"]{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.steps-nav{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin:0 0 20px 44px;padding:10px 0 0;
+}
+.steps-nav button{
+  font:inherit;font-size:15px;font-weight:600;color:var(--accent);
+  background:var(--accent-wash);border:1px solid var(--rule);border-radius:999px;
+  padding:8px 16px;cursor:pointer;
+}
+.steps-nav button:disabled{color:var(--ink-soft);background:var(--wash);cursor:default;opacity:.6}
+.steps-nav .steps-count{font-size:14px;font-weight:600;color:var(--ink-soft);white-space:nowrap}
+
+/* ---------- части ---------- */
+section.part{padding:44px 0 8px;border-bottom:1px solid var(--rule)}
+.part-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+.part-num{
+  font-weight:900;font-size:15px;color:var(--paper);background:var(--accent);
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:4px;
+}
+h2{font-size:27px;line-height:1.18;font-weight:800;letter-spacing:-0.02em;margin:0}
+.part-meta{font-size:14px;color:var(--ink-soft);margin:2px 0 20px 44px}
+
+h3{font-size:19px;font-weight:700;margin:32px 0 10px;letter-spacing:-0.01em}
+p{margin:0 0 14px}
+.muted{color:var(--ink-soft)}
+.small{font-size:15px}
+
+/* ---------- шаги ---------- */
+ol.steps{list-style:none;margin:0 0 8px;padding:0;counter-reset:st}
+ol.steps>li{
+  counter-increment:st;
+  position:relative;
+  padding:0 0 20px 44px;
+  border-left:2px solid var(--rule);
+  margin-left:14px;
+}
+ol.steps>li::before{
+  content:counter(st);
+  position:absolute;left:-15px;top:0;
+  width:28px;height:28px;border-radius:50%;
+  background:var(--paper);border:2px solid var(--rule);
+  font-size:14px;font-weight:700;color:var(--ink-soft);
+  display:flex;align-items:center;justify-content:center;
+}
+ol.steps>li:last-child{border-left-color:transparent;padding-bottom:4px}
+ol.steps p{margin:0 0 10px}
+ol.steps .t{font-weight:600;display:block;margin-bottom:4px}
+
+ul.plain{margin:0 0 14px;padding-left:20px}
+ul.plain li{margin-bottom:7px}
+
+kbd,.ui{
+  font-family:inherit;font-weight:600;font-size:.94em;
+  background:var(--wash);border:1px solid var(--rule);border-radius:5px;
+  padding:1px 6px;
+  white-space:normal;overflow-wrap:anywhere;
+}
+
+/* ---------- врезки ---------- */
+.note{border-left:3px solid;padding:13px 16px;margin:0 0 18px;border-radius:0 8px 8px 0;font-size:15.5px}
+.note p:last-child{margin-bottom:0}
+.note .lbl{font-weight:700;display:block;margin-bottom:3px;font-size:14px}
+.note.warn{border-color:var(--warn);background:var(--warn-wash);color:var(--warn)}
+.note.danger{border-color:var(--danger);background:var(--danger-wash);color:var(--danger)}
+.note.tip{border-color:var(--ok);background:var(--ok-wash);color:var(--ok)}
+.note.info{border-color:var(--accent);background:var(--accent-wash);color:#17318f}
+.note a{color:inherit}
+
+/* ---------- скриншоты ---------- */
+figure.shot{margin:14px 0 18px}
+.shot-slot{
+  border:2px dashed #b9c6d3;border-radius:10px;background:var(--wash);
+  color:#728699;display:flex;align-items:center;justify-content:center;
+  text-align:center;padding:16px;font-size:14px;line-height:1.45;font-weight:500;
+}
+.shot-img{display:block;width:100%;border:1px solid var(--rule);border-radius:10px}
+.shot-wide{aspect-ratio:16/10;width:100%}
+.shot-phone{aspect-ratio:9/16;max-width:220px;margin-left:0}
+img.shot-phone{height:auto}
+figcaption{font-size:13.5px;color:var(--ink-soft);margin-top:7px}
+
+/* ---------- таблица ---------- */
+table{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;margin:0 0 18px}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
+th{font-weight:700;font-size:13.5px;color:var(--ink-soft)}
+
+/* ---------- FAQ ---------- */
+details{border-bottom:1px solid var(--rule);padding:13px 0}
+summary{cursor:pointer;font-weight:600;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";float:right;color:var(--accent);font-weight:700}
+details[open] summary::after{content:"–"}
+details p{margin:10px 0 0;color:var(--ink-soft);font-size:15.5px}
+
+footer{padding:34px 0 60px;font-size:14px;color:var(--ink-soft)}
+
+@media (max-width:480px){
+  .wrap{padding:0 16px}
+  ol.steps>li{padding-left:34px;margin-left:11px}
+  ol.steps>li::before{width:24px;height:24px;left:-13px;font-size:13px}
+  .steps-nav{margin-left:34px}
+  h1{font-size:clamp(29px,8.4vw,40px)}
+  .note{padding:12px 13px}
+  th,td{padding:9px 5px;font-size:14.5px}
+  .chips-scroll{padding:10px 16px}
+}
+@media (min-width:720px){
+  body{font-size:18px}
+  .shot-phone{max-width:260px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  nav.chips{display:none}
+  body{font-size:11.5pt}
+  .shot-slot{min-height:0;aspect-ratio:auto;padding:24px}
+  section.part{break-inside:auto;page-break-before:always}
+  details{page-break-inside:avoid}
+  details[open] p{display:block}
+}

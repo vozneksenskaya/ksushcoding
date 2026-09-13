@@ -15,7 +15,7 @@
 
       <img class="shot-img shot-phone" src="img/2-3.png" alt="Подпись">
 
-  Положите файлы в папку img/ рядом с этим HTML.
+  Файлы кладите в папку img/ рядом с этим HTML, называйте по номеру шага.
   Классы кадра: shot-phone (вертикальный) / shot-wide (горизонтальный).
   ============================================================
 -->
@@ -24,222 +24,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ChatGPT из России — пошаговая инструкция</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#ffffff;
-    --ink:#12202e;
-    --ink-soft:#4a5b6c;
-    --rule:#dbe3ea;
-    --wash:#f2f5f8;
-    --accent:#1f3fd0;
-    --accent-wash:#e9edff;
-    --warn:#8f4e00;
-    --warn-wash:#fff3e0;
-    --danger:#9d211b;
-    --danger-wash:#fdeceb;
-    --ok:#136448;
-    --ok-wash:#e6f3ed;
-    --maxw:38rem;
-  }
-
-  *{box-sizing:border-box;min-width:0}
-  html{-webkit-text-size-adjust:100%;overflow-x:hidden}
-  body{
-    margin:0;
-    overflow-x:hidden;
-    overflow-wrap:break-word;
-    word-break:normal;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:"Golos Text","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
-    font-size:17px;
-    line-height:1.6;
-    letter-spacing:-0.004em;
-  }
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
-
-  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
-  a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
-
-  /* ---------- шапка ---------- */
-  header.hero{padding:56px 0 28px;border-bottom:1px solid var(--rule)}
-  .kicker{font-size:14px;font-weight:600;color:var(--ink-soft);margin:0 0 14px}
-  h1{
-    font-size:clamp(34px,9vw,46px);
-    line-height:1.04;
-    font-weight:900;
-    letter-spacing:-0.03em;
-    margin:0 0 16px;
-  }
-  .lede{font-size:19px;color:var(--ink-soft);margin:0 0 28px;max-width:32rem}
-
-  .route{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
-  .route li{
-    display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;
-    padding:11px 2px;border-bottom:1px solid var(--rule);
-  }
-  .route b{font-weight:700;color:var(--accent);flex:0 0 auto;min-width:1.2em;font-size:15px}
-  .route a{flex:1 1 12rem;min-width:0}
-  .route span{display:inline}
-  .route em{font-style:normal;color:var(--ink-soft);font-size:14px;white-space:nowrap}
-  .route a{color:inherit;text-decoration:none}
-  .route a:hover span{text-decoration:underline}
-
-  /* ---------- липкая навигация ---------- */
-  nav.chips{
-    position:sticky;top:0;z-index:20;
-    background:rgba(255,255,255,.94);
-    backdrop-filter:saturate(140%) blur(8px);
-    border-bottom:1px solid var(--rule);
-    margin-top:36px;
-  }
-  .chips-scroll{
-    display:flex;gap:8px;overflow-x:auto;padding:10px 20px;
-    max-width:var(--maxw);margin:0 auto;
-    scrollbar-width:none;
-  }
-  .chips-scroll::-webkit-scrollbar{display:none}
-  .chip{
-    flex:0 0 auto;font-size:14px;font-weight:600;
-    padding:6px 12px;border:1px solid var(--rule);border-radius:999px;
-    color:var(--ink-soft);text-decoration:none;background:var(--paper);
-  }
-  .chip[data-done="1"]{border-color:var(--ok);color:var(--ok);background:var(--ok-wash)}
-  .chip[data-done="1"]::before{content:"✓ "}
-
-  /* ---------- части ---------- */
-  section.part{padding:44px 0 8px;border-bottom:1px solid var(--rule)}
-  .part-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
-  .part-num{
-    font-weight:900;font-size:15px;color:var(--paper);background:var(--accent);
-    width:30px;height:30px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:4px;
-  }
-  h2{font-size:27px;line-height:1.18;font-weight:800;letter-spacing:-0.02em;margin:0}
-  .part-meta{font-size:14px;color:var(--ink-soft);margin:2px 0 20px 44px}
-
-  h3{font-size:19px;font-weight:700;margin:32px 0 10px;letter-spacing:-0.01em}
-  p{margin:0 0 14px}
-  .muted{color:var(--ink-soft)}
-  .small{font-size:15px}
-
-  /* ---------- шаги ---------- */
-  ol.steps{list-style:none;margin:0 0 8px;padding:0;counter-reset:st}
-  ol.steps>li{
-    counter-increment:st;
-    position:relative;
-    padding:0 0 20px 44px;
-    border-left:2px solid var(--rule);
-    margin-left:14px;
-  }
-  ol.steps>li::before{
-    content:counter(st);
-    position:absolute;left:-15px;top:0;
-    width:28px;height:28px;border-radius:50%;
-    background:var(--paper);border:2px solid var(--rule);
-    font-size:14px;font-weight:700;color:var(--ink-soft);
-    display:flex;align-items:center;justify-content:center;
-  }
-  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:4px}
-  ol.steps p{margin:0 0 10px}
-  ol.steps .t{font-weight:600;display:block;margin-bottom:4px}
-
-  ul.plain{margin:0 0 14px;padding-left:20px}
-  ul.plain li{margin-bottom:7px}
-
-  kbd,.ui{
-    font-family:inherit;font-weight:600;font-size:.94em;
-    background:var(--wash);border:1px solid var(--rule);border-radius:5px;
-    padding:1px 6px;
-    white-space:normal;overflow-wrap:anywhere;
-  }
-
-  /* ---------- врезки ---------- */
-  .note{border-left:3px solid;padding:13px 16px;margin:0 0 18px;border-radius:0 8px 8px 0;font-size:15.5px}
-  .note p:last-child{margin-bottom:0}
-  .note .lbl{font-weight:700;display:block;margin-bottom:3px;font-size:14px}
-  .note.warn{border-color:var(--warn);background:var(--warn-wash);color:var(--warn)}
-  .note.danger{border-color:var(--danger);background:var(--danger-wash);color:var(--danger)}
-  .note.tip{border-color:var(--ok);background:var(--ok-wash);color:var(--ok)}
-  .note.info{border-color:var(--accent);background:var(--accent-wash);color:#17318f}
-  .note a{color:inherit}
-
-  /* ---------- скриншоты ---------- */
-  figure.shot{margin:14px 0 18px}
-  .shot-slot{
-    border:2px dashed #b9c6d3;border-radius:10px;background:var(--wash);
-    color:#728699;display:flex;align-items:center;justify-content:center;
-    text-align:center;padding:16px;font-size:14px;line-height:1.45;font-weight:500;
-  }
-  .shot-img{display:block;width:100%;border:1px solid var(--rule);border-radius:10px}
-  .shot-wide{aspect-ratio:16/10;width:100%}
-  .shot-phone{aspect-ratio:9/16;max-width:220px;margin-left:0}
-  img.shot-phone{height:auto}
-  figcaption{font-size:13.5px;color:var(--ink-soft);margin-top:7px}
-
-  /* ---------- галочка «сделано» ---------- */
-  .done-btn{
-    display:inline-flex;align-items:center;gap:9px;cursor:pointer;
-    font:inherit;font-size:15px;font-weight:600;color:var(--ink-soft);
-    background:none;border:1px solid var(--rule);border-radius:999px;
-    padding:7px 15px;margin:6px 0 28px;
-  }
-  .done-btn .box{
-    width:17px;height:17px;border:2px solid #b9c6d3;border-radius:4px;flex:0 0 auto;
-  }
-  .done-btn[aria-pressed="true"]{color:var(--ok);border-color:var(--ok);background:var(--ok-wash)}
-  .done-btn[aria-pressed="true"] .box{
-    background:var(--ok);border-color:var(--ok);
-    background-image:linear-gradient(45deg,transparent 45%,#fff 45%,#fff 55%,transparent 55%);
-  }
-
-  /* ---------- таблица ---------- */
-  table{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;margin:0 0 18px}
-  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
-  th{font-weight:700;font-size:13.5px;color:var(--ink-soft)}
-
-  /* ---------- FAQ ---------- */
-  details{border-bottom:1px solid var(--rule);padding:13px 0}
-  summary{cursor:pointer;font-weight:600;list-style:none}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";float:right;color:var(--accent);font-weight:700}
-  details[open] summary::after{content:"–"}
-  details p{margin:10px 0 0;color:var(--ink-soft);font-size:15.5px}
-
-  footer{padding:34px 0 60px;font-size:14px;color:var(--ink-soft)}
-
-  .editor-note{
-    background:#fffbe6;border:1px dashed #d9c98a;border-radius:10px;
-    padding:14px 16px;margin:26px 0 0;font-size:14.5px;color:#6b5a16;
-  }
-  .editor-note p:last-child{margin-bottom:0}
-
-  @media (max-width:480px){
-    .wrap{padding:0 16px}
-    ol.steps>li{padding-left:34px;margin-left:11px}
-    ol.steps>li::before{width:24px;height:24px;left:-13px;font-size:13px}
-    h1{font-size:clamp(29px,8.4vw,40px)}
-    .note{padding:12px 13px}
-    th,td{padding:9px 5px;font-size:14.5px}
-    .chips-scroll{padding:10px 16px}
-  }
-  @media (min-width:720px){
-    body{font-size:18px}
-    .shot-phone{max-width:260px}
-  }
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
-  @media print{
-    nav.chips,.done-btn,.editor-note{display:none}
-    body{font-size:11.5pt}
-    .shot-slot{min-height:0;aspect-ratio:auto;padding:24px}
-    section.part{break-inside:auto;page-break-before:always}
-    details{page-break-inside:avoid}
-    details[open] p{display:block}
-  }
-</style>
+<link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
 
@@ -264,15 +49,16 @@
 
 <nav class="chips" aria-label="Разделы">
   <div class="chips-scroll">
-    <a class="chip" href="#p0" data-chip="p0">Подготовка</a>
-    <a class="chip" href="#p1" data-chip="p1">Доступ</a>
-    <a class="chip" href="#p2" data-chip="p2">Google</a>
-    <a class="chip" href="#p3" data-chip="p3">ChatGPT</a>
-    <a class="chip" href="#p4" data-chip="p4">iPhone</a>
-    <a class="chip" href="#p5" data-chip="p5">Android</a>
-    <a class="chip" href="#p6" data-chip="p6">Компьютер</a>
-    <a class="chip" href="#p7" data-chip="p7">Проблемы</a>
-    <a class="chip" href="#faq" data-chip="faq">Вопросы</a>
+    <button type="button" class="mode-toggle" id="stepsToggle" aria-pressed="false">По шагам</button>
+    <a class="chip" href="#p0">Подготовка</a>
+    <a class="chip" href="#p1">Доступ</a>
+    <a class="chip" href="#p2">Google</a>
+    <a class="chip" href="#p3">ChatGPT</a>
+    <a class="chip" href="#p4">iPhone</a>
+    <a class="chip" href="#p5">Android</a>
+    <a class="chip" href="#p6">Компьютер</a>
+    <a class="chip" href="#p7">Проблемы</a>
+    <a class="chip" href="#faq">Вопросы</a>
   </div>
 </nav>
 
@@ -310,8 +96,6 @@
     <span class="lbl">Безопасность</span>
     <p>Не покупайте «готовые аккаунты» и не вводите свои пароли на посторонних сайтах, которые обещают «ChatGPT без регистрации». Такие аккаунты уводят обратно, а пароли собирают.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p0"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 1 ================= -->
@@ -351,8 +135,6 @@
     <span class="lbl">Совет</span>
     <p>Откройте сайт в режиме инкогнито (в Chrome: <span class="ui">Ctrl</span>+<span class="ui">Shift</span>+<span class="ui">N</span>, на Mac <span class="ui">⌘</span>+<span class="ui">Shift</span>+<span class="ui">N</span>). Старые файлы cookie иногда выдают реальную страну, и сайт снова показывает ошибку.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p1"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 2 ================= -->
@@ -423,8 +205,6 @@
     <span class="lbl">Частая ошибка</span>
     <p>Новый аккаунт, созданный через зарубежное подключение и тут же открытый с российского IP, иногда просит дополнительное подтверждение. Первые несколько дней заходите в него с тем же подключением, что и при регистрации.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p2"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 3 ================= -->
@@ -493,8 +273,6 @@
     <span class="lbl">Про платную подписку</span>
     <p>Бесплатной версии хватает для большинства задач. Оплатить ChatGPT Plus российской картой на официальном сайте не получится — нужна зарубежная карта или счёт. Начните с бесплатного тарифа и решите позже, нужно ли больше.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p3"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 4 ================= -->
@@ -557,8 +335,6 @@
     <span class="lbl">Пока вы в зарубежном аккаунте</span>
     <p>Российские подписки (Apple Music, iCloud и другие) временно недоступны и обновления других приложений могут не ставиться. После возврата в основной аккаунт всё восстанавливается.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p4"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 5 ================= -->
@@ -612,8 +388,6 @@
     <span class="lbl">Осторожно с APK</span>
     <p>Файлы с случайных сайтов, из мессенджеров и по ссылкам «скачать бесплатно ChatGPT Plus» — самый распространённый способ занести на телефон вирус, который читает SMS и банковские приложения. Обновлять такое приложение тоже придётся вручную.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p5"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 6 ================= -->
@@ -666,8 +440,6 @@
     <li><span class="t">Готово</span>
       <p>На рабочем столе появится ярлык, который открывает ChatGPT в отдельном окне без адресной строки. Выглядит и работает как обычная программа.</p></li>
   </ol>
-
-  <button class="done-btn" aria-pressed="false" data-for="p6"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= ЧАСТЬ 7 ================= -->
@@ -716,8 +488,6 @@
     <span class="lbl">Правила долгой жизни аккаунта</span>
     <p>Одна страна подключения. Один аккаунт на человека. Не заходить одновременно с российского и зарубежного IP. Не передавать доступ другим людям.</p>
   </div>
-
-  <button class="done-btn" aria-pressed="false" data-for="p7"><span class="box"></span>Часть пройдена</button>
 </section>
 
 <!-- ================= FAQ ================= -->
@@ -747,28 +517,73 @@
     <p>Есть российские сервисы и другие ИИ-ассистенты, которые работают без подключения из-за рубежа. Для большинства повседневных задач разница не критична.</p></details>
 </section>
 
-<div class="editor-note">
-  <p><b>Служебный блок — удалите перед публикацией.</b></p>
-  <p>Места под скриншоты помечены пунктирными рамками, в каждой написано, какой именно кадр нужен. Как заменить рамку на картинку — в комментарии в самом начале файла (откройте его в блокноте).</p>
-  <p>Всего кадров: 15. Снимайте на светлой теме интерфейса и закрашивайте почту, номер телефона и имя на скриншотах перед публикацией.</p>
-</div>
-
 <footer>
   <p>Инструкция описывает общедоступные технические шаги и не является юридической консультацией. Использование сервиса вопреки региональным ограничениям может нарушать пользовательское соглашение OpenAI и привести к блокировке аккаунта. Перед публикацией материала проверьте требования законодательства вашей страны.</p>
+  <p>Проверено: 13 сентября 2026.</p>
 </footer>
 
 </main>
 
 <script>
-  // Отметка «часть пройдена» — подсвечивает вкладку сверху. Без сохранения между сессиями.
-  document.querySelectorAll('.done-btn').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var on = btn.getAttribute('aria-pressed') === 'true';
-      btn.setAttribute('aria-pressed', String(!on));
-      var chip = document.querySelector('[data-chip="' + btn.dataset.for + '"]');
-      if (chip) chip.setAttribute('data-done', on ? '0' : '1');
+  // Переключатель «по шагам»: показывает шаги ol.steps по одному, с счётчиком.
+  // Без этого скрипта страница остаётся обычным списком.
+  (function () {
+    var toggle = document.getElementById('stepsToggle');
+    var lists = Array.prototype.slice.call(document.querySelectorAll('ol.steps'));
+    if (!toggle || !lists.length) return;
+
+    var groups = lists.map(function (list) {
+      var items = Array.prototype.slice.call(list.children).filter(function (el) {
+        return el.tagName === 'LI';
+      });
+      var nav = document.createElement('div');
+      nav.className = 'steps-nav';
+      nav.hidden = true;
+      nav.innerHTML =
+        '<button type="button" class="steps-prev">Назад</button>' +
+        '<span class="steps-count"></span>' +
+        '<button type="button" class="steps-next">Вперёд</button>';
+      list.insertAdjacentElement('afterend', nav);
+
+      var group = {
+        items: items,
+        nav: nav,
+        index: 0,
+        prevBtn: nav.querySelector('.steps-prev'),
+        nextBtn: nav.querySelector('.steps-next'),
+        count: nav.querySelector('.steps-count')
+      };
+      group.prevBtn.addEventListener('click', function () { move(group, -1); });
+      group.nextBtn.addEventListener('click', function () { move(group, 1); });
+      return group;
     });
-  });
+
+    function render(group) {
+      var stepMode = document.body.classList.contains('steps-mode');
+      group.count.textContent = 'Шаг ' + (group.index + 1) + ' из ' + group.items.length;
+      group.prevBtn.disabled = group.index === 0;
+      group.nextBtn.disabled = group.index === group.items.length - 1;
+      group.items.forEach(function (li, i) {
+        li.hidden = stepMode && i !== group.index;
+      });
+    }
+
+    function move(group, delta) {
+      group.index = Math.min(Math.max(group.index + delta, 0), group.items.length - 1);
+      render(group);
+    }
+
+    toggle.addEventListener('click', function () {
+      var on = document.body.classList.toggle('steps-mode');
+      toggle.setAttribute('aria-pressed', String(on));
+      toggle.textContent = on ? 'Списком' : 'По шагам';
+      groups.forEach(function (group) {
+        group.nav.hidden = !on;
+        render(group);
+      });
+    });
+  })();
 </script>
+<script src="../assets/tg.js"></script>
 </body>
 </html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  ИНСТРУКЦИЯ: КАК ВСТАВИТЬ СВОИ СКРИНШОТЫ
+  ------------------------------------------------------------
+  Каждое место под картинку выглядит в коде так:
+
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Описание кадра</div>
+        <figcaption>Скрин 1.1 — подпись</figcaption>
+      </figure>
+
+  Чтобы поставить свой скриншот, замените строку <div class="shot-slot ...">
+  на картинку:
+
+      <img class="shot-img shot-phone" src="img/1-1.png" alt="Подпись">
+
+  Файлы кладите в папку img/ рядом с этим HTML, называйте по номеру шага.
+  Классы кадра: shot-phone (вертикальный) / shot-wide (горизонтальный).
+  ============================================================
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Название инструкции</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Инструкция для новичков · обновлено в месяце 2026</p>
+    <h1>Название инструкции</h1>
+    <p class="lede">Одно-два предложения: что в итоге получится и для кого это.</p>
+
+    <ol class="route">
+      <li><b>1</b><a href="#p1"><span>Название первой части</span></a><em>5 мин</em></li>
+      <li><b>2</b><a href="#p2"><span>Название второй части</span></a><em>5 мин</em></li>
+    </ol>
+  </div>
+</header>
+
+<nav class="chips" aria-label="Разделы">
+  <div class="chips-scroll">
+    <button type="button" class="mode-toggle" id="stepsToggle" aria-pressed="false">По шагам</button>
+    <a class="chip" href="#p1">Часть 1</a>
+    <a class="chip" href="#p2">Часть 2</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= ЧАСТЬ 1 ================= -->
+<section class="part" id="p1">
+  <div class="part-head">
+    <div class="part-num">1</div>
+    <h2>Название первой части</h2>
+  </div>
+  <p class="part-meta">Короткое пояснение, что тут будет</p>
+
+  <p>Вводный абзац перед шагами, если нужен.</p>
+
+  <ol class="steps">
+    <li><span class="t">Что нажать</span>
+      <p>Как понять, что получилось. Если шаг может пойти не так — сразу тут, что делать.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Описание кадра для скриншота</div>
+        <figcaption>Скрин 1.1 — подпись</figcaption>
+      </figure>
+    </li>
+    <li><span class="t">Что нажать дальше</span>
+      <p>Как понять, что получилось.</p></li>
+  </ol>
+
+  <div class="note info">
+    <span class="lbl">Заголовок врезки</span>
+    <p>Текст врезки. Другие варианты класса: <span class="ui">note warn</span>, <span class="ui">note danger</span>, <span class="ui">note tip</span>.</p>
+  </div>
+</section>
+
+<!-- ================= ЧАСТЬ 2 ================= -->
+<section class="part" id="p2">
+  <div class="part-head">
+    <div class="part-num">2</div>
+    <h2>Название второй части</h2>
+  </div>
+  <p class="part-meta">Короткое пояснение, что тут будет</p>
+
+  <ol class="steps">
+    <li><span class="t">Что нажать</span>
+      <p>Как понять, что получилось.</p></li>
+  </ol>
+</section>
+
+<footer>
+  <p>Проверено: дата последней проверки.</p>
+</footer>
+
+</main>
+
+<script>
+  // Переключатель «по шагам»: показывает шаги ol.steps по одному, с счётчиком.
+  // Без этого скрипта страница остаётся обычным списком.
+  (function () {
+    var toggle = document.getElementById('stepsToggle');
+    var lists = Array.prototype.slice.call(document.querySelectorAll('ol.steps'));
+    if (!toggle || !lists.length) return;
+
+    var groups = lists.map(function (list) {
+      var items = Array.prototype.slice.call(list.children).filter(function (el) {
+        return el.tagName === 'LI';
+      });
+      var nav = document.createElement('div');
+      nav.className = 'steps-nav';
+      nav.hidden = true;
+      nav.innerHTML =
+        '<button type="button" class="steps-prev">Назад</button>' +
+        '<span class="steps-count"></span>' +
+        '<button type="button" class="steps-next">Вперёд</button>';
+      list.insertAdjacentElement('afterend', nav);
+
+      var group = {
+        items: items,
+        nav: nav,
+        index: 0,
+        prevBtn: nav.querySelector('.steps-prev'),
+        nextBtn: nav.querySelector('.steps-next'),
+        count: nav.querySelector('.steps-count')
+      };
+      group.prevBtn.addEventListener('click', function () { move(group, -1); });
+      group.nextBtn.addEventListener('click', function () { move(group, 1); });
+      return group;
+    });
+
+    function render(group) {
+      var stepMode = document.body.classList.contains('steps-mode');
+      group.count.textContent = 'Шаг ' + (group.index + 1) + ' из ' + group.items.length;
+      group.prevBtn.disabled = group.index === 0;
+      group.nextBtn.disabled = group.index === group.items.length - 1;
+      group.items.forEach(function (li, i) {
+        li.hidden = stepMode && i !== group.index;
+      });
+    }
+
+    function move(group, delta) {
+      group.index = Math.min(Math.max(group.index + delta, 0), group.items.length - 1);
+      render(group);
+    }
+
+    toggle.addEventListener('click', function () {
+      var on = document.body.classList.toggle('steps-mode');
+      toggle.setAttribute('aria-pressed', String(on));
+      toggle.textContent = on ? 'Списком' : 'По шагам';
+      groups.forEach(function (group) {
+        group.nav.hidden = !on;
+        render(group);
+      });
+    });
+  })();
+</script>
+<script src="../assets/tg.js"></script>
+</body>
+</html>
