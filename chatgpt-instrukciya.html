@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<!--
+  ============================================================
+  ИНСТРУКЦИЯ: КАК ВСТАВИТЬ СВОИ СКРИНШОТЫ
+  ------------------------------------------------------------
+  Каждое место под картинку выглядит в коде так:
+
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Описание кадра</div>
+        <figcaption>Скрин 2.3 — подпись</figcaption>
+      </figure>
+
+  Чтобы поставить свой скриншот, замените строку <div class="shot-slot ...">
+  на картинку:
+
+      <img class="shot-img shot-phone" src="img/2-3.png" alt="Подпись">
+
+  Положите файлы в папку img/ рядом с этим HTML.
+  Классы кадра: shot-phone (вертикальный) / shot-wide (горизонтальный).
+  ============================================================
+-->
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ChatGPT из России — пошаговая инструкция</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#ffffff;
+    --ink:#12202e;
+    --ink-soft:#4a5b6c;
+    --rule:#dbe3ea;
+    --wash:#f2f5f8;
+    --accent:#1f3fd0;
+    --accent-wash:#e9edff;
+    --warn:#8f4e00;
+    --warn-wash:#fff3e0;
+    --danger:#9d211b;
+    --danger-wash:#fdeceb;
+    --ok:#136448;
+    --ok-wash:#e6f3ed;
+    --maxw:38rem;
+  }
+
+  *{box-sizing:border-box;min-width:0}
+  html{-webkit-text-size-adjust:100%;overflow-x:hidden}
+  body{
+    margin:0;
+    overflow-x:hidden;
+    overflow-wrap:break-word;
+    word-break:normal;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Golos Text","Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    font-size:17px;
+    line-height:1.6;
+    letter-spacing:-0.004em;
+  }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+
+  a{color:var(--accent);text-decoration:underline;text-underline-offset:2px;text-decoration-thickness:1px}
+  a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:3px}
+
+  /* ---------- шапка ---------- */
+  header.hero{padding:56px 0 28px;border-bottom:1px solid var(--rule)}
+  .kicker{font-size:14px;font-weight:600;color:var(--ink-soft);margin:0 0 14px}
+  h1{
+    font-size:clamp(34px,9vw,46px);
+    line-height:1.04;
+    font-weight:900;
+    letter-spacing:-0.03em;
+    margin:0 0 16px;
+  }
+  .lede{font-size:19px;color:var(--ink-soft);margin:0 0 28px;max-width:32rem}
+
+  .route{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+  .route li{
+    display:flex;gap:12px;align-items:baseline;flex-wrap:wrap;
+    padding:11px 2px;border-bottom:1px solid var(--rule);
+  }
+  .route b{font-weight:700;color:var(--accent);flex:0 0 auto;min-width:1.2em;font-size:15px}
+  .route a{flex:1 1 12rem;min-width:0}
+  .route span{display:inline}
+  .route em{font-style:normal;color:var(--ink-soft);font-size:14px;white-space:nowrap}
+  .route a{color:inherit;text-decoration:none}
+  .route a:hover span{text-decoration:underline}
+
+  /* ---------- липкая навигация ---------- */
+  nav.chips{
+    position:sticky;top:0;z-index:20;
+    background:rgba(255,255,255,.94);
+    backdrop-filter:saturate(140%) blur(8px);
+    border-bottom:1px solid var(--rule);
+    margin-top:36px;
+  }
+  .chips-scroll{
+    display:flex;gap:8px;overflow-x:auto;padding:10px 20px;
+    max-width:var(--maxw);margin:0 auto;
+    scrollbar-width:none;
+  }
+  .chips-scroll::-webkit-scrollbar{display:none}
+  .chip{
+    flex:0 0 auto;font-size:14px;font-weight:600;
+    padding:6px 12px;border:1px solid var(--rule);border-radius:999px;
+    color:var(--ink-soft);text-decoration:none;background:var(--paper);
+  }
+  .chip[data-done="1"]{border-color:var(--ok);color:var(--ok);background:var(--ok-wash)}
+  .chip[data-done="1"]::before{content:"✓ "}
+
+  /* ---------- части ---------- */
+  section.part{padding:44px 0 8px;border-bottom:1px solid var(--rule)}
+  .part-head{display:flex;gap:14px;align-items:flex-start;margin-bottom:6px}
+  .part-num{
+    font-weight:900;font-size:15px;color:var(--paper);background:var(--accent);
+    width:30px;height:30px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;margin-top:4px;
+  }
+  h2{font-size:27px;line-height:1.18;font-weight:800;letter-spacing:-0.02em;margin:0}
+  .part-meta{font-size:14px;color:var(--ink-soft);margin:2px 0 20px 44px}
+
+  h3{font-size:19px;font-weight:700;margin:32px 0 10px;letter-spacing:-0.01em}
+  p{margin:0 0 14px}
+  .muted{color:var(--ink-soft)}
+  .small{font-size:15px}
+
+  /* ---------- шаги ---------- */
+  ol.steps{list-style:none;margin:0 0 8px;padding:0;counter-reset:st}
+  ol.steps>li{
+    counter-increment:st;
+    position:relative;
+    padding:0 0 20px 44px;
+    border-left:2px solid var(--rule);
+    margin-left:14px;
+  }
+  ol.steps>li::before{
+    content:counter(st);
+    position:absolute;left:-15px;top:0;
+    width:28px;height:28px;border-radius:50%;
+    background:var(--paper);border:2px solid var(--rule);
+    font-size:14px;font-weight:700;color:var(--ink-soft);
+    display:flex;align-items:center;justify-content:center;
+  }
+  ol.steps>li:last-child{border-left-color:transparent;padding-bottom:4px}
+  ol.steps p{margin:0 0 10px}
+  ol.steps .t{font-weight:600;display:block;margin-bottom:4px}
+
+  ul.plain{margin:0 0 14px;padding-left:20px}
+  ul.plain li{margin-bottom:7px}
+
+  kbd,.ui{
+    font-family:inherit;font-weight:600;font-size:.94em;
+    background:var(--wash);border:1px solid var(--rule);border-radius:5px;
+    padding:1px 6px;
+    white-space:normal;overflow-wrap:anywhere;
+  }
+
+  /* ---------- врезки ---------- */
+  .note{border-left:3px solid;padding:13px 16px;margin:0 0 18px;border-radius:0 8px 8px 0;font-size:15.5px}
+  .note p:last-child{margin-bottom:0}
+  .note .lbl{font-weight:700;display:block;margin-bottom:3px;font-size:14px}
+  .note.warn{border-color:var(--warn);background:var(--warn-wash);color:var(--warn)}
+  .note.danger{border-color:var(--danger);background:var(--danger-wash);color:var(--danger)}
+  .note.tip{border-color:var(--ok);background:var(--ok-wash);color:var(--ok)}
+  .note.info{border-color:var(--accent);background:var(--accent-wash);color:#17318f}
+  .note a{color:inherit}
+
+  /* ---------- скриншоты ---------- */
+  figure.shot{margin:14px 0 18px}
+  .shot-slot{
+    border:2px dashed #b9c6d3;border-radius:10px;background:var(--wash);
+    color:#728699;display:flex;align-items:center;justify-content:center;
+    text-align:center;padding:16px;font-size:14px;line-height:1.45;font-weight:500;
+  }
+  .shot-img{display:block;width:100%;border:1px solid var(--rule);border-radius:10px}
+  .shot-wide{aspect-ratio:16/10;width:100%}
+  .shot-phone{aspect-ratio:9/16;max-width:220px;margin-left:0}
+  img.shot-phone{height:auto}
+  figcaption{font-size:13.5px;color:var(--ink-soft);margin-top:7px}
+
+  /* ---------- галочка «сделано» ---------- */
+  .done-btn{
+    display:inline-flex;align-items:center;gap:9px;cursor:pointer;
+    font:inherit;font-size:15px;font-weight:600;color:var(--ink-soft);
+    background:none;border:1px solid var(--rule);border-radius:999px;
+    padding:7px 15px;margin:6px 0 28px;
+  }
+  .done-btn .box{
+    width:17px;height:17px;border:2px solid #b9c6d3;border-radius:4px;flex:0 0 auto;
+  }
+  .done-btn[aria-pressed="true"]{color:var(--ok);border-color:var(--ok);background:var(--ok-wash)}
+  .done-btn[aria-pressed="true"] .box{
+    background:var(--ok);border-color:var(--ok);
+    background-image:linear-gradient(45deg,transparent 45%,#fff 45%,#fff 55%,transparent 55%);
+  }
+
+  /* ---------- таблица ---------- */
+  table{width:100%;max-width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;margin:0 0 18px}
+  th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
+  th{font-weight:700;font-size:13.5px;color:var(--ink-soft)}
+
+  /* ---------- FAQ ---------- */
+  details{border-bottom:1px solid var(--rule);padding:13px 0}
+  summary{cursor:pointer;font-weight:600;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";float:right;color:var(--accent);font-weight:700}
+  details[open] summary::after{content:"–"}
+  details p{margin:10px 0 0;color:var(--ink-soft);font-size:15.5px}
+
+  footer{padding:34px 0 60px;font-size:14px;color:var(--ink-soft)}
+
+  .editor-note{
+    background:#fffbe6;border:1px dashed #d9c98a;border-radius:10px;
+    padding:14px 16px;margin:26px 0 0;font-size:14.5px;color:#6b5a16;
+  }
+  .editor-note p:last-child{margin-bottom:0}
+
+  @media (max-width:480px){
+    .wrap{padding:0 16px}
+    ol.steps>li{padding-left:34px;margin-left:11px}
+    ol.steps>li::before{width:24px;height:24px;left:-13px;font-size:13px}
+    h1{font-size:clamp(29px,8.4vw,40px)}
+    .note{padding:12px 13px}
+    th,td{padding:9px 5px;font-size:14.5px}
+    .chips-scroll{padding:10px 16px}
+  }
+  @media (min-width:720px){
+    body{font-size:18px}
+    .shot-phone{max-width:260px}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  @media print{
+    nav.chips,.done-btn,.editor-note{display:none}
+    body{font-size:11.5pt}
+    .shot-slot{min-height:0;aspect-ratio:auto;padding:24px}
+    section.part{break-inside:auto;page-break-before:always}
+    details{page-break-inside:avoid}
+    details[open] p{display:block}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Инструкция для новичков · обновлено в сентябре 2026</p>
+    <h1>ChatGPT из России: от нуля до работающего приложения</h1>
+    <p class="lede">Полный маршрут: почта Google, аккаунт в ChatGPT, установка на телефон и компьютер. Каждый шаг расписан так, чтобы можно было просто повторять за инструкцией.</p>
+
+    <ol class="route">
+      <li><b>0</b><a href="#p0"><span>Что понадобится и о чём знать заранее</span></a><em>5 мин</em></li>
+      <li><b>1</b><a href="#p1"><span>Доступ: зарубежный IP-адрес</span></a><em>10 мин</em></li>
+      <li><b>2</b><a href="#p2"><span>Аккаунт Google</span></a><em>10 мин</em></li>
+      <li><b>3</b><a href="#p3"><span>Регистрация в ChatGPT</span></a><em>7 мин</em></li>
+      <li><b>4</b><a href="#p4"><span>Установка на iPhone</span></a><em>15 мин</em></li>
+      <li><b>5</b><a href="#p5"><span>Установка на Android</span></a><em>10 мин</em></li>
+      <li><b>6</b><a href="#p6"><span>Установка на Windows и MacBook</span></a><em>7 мин</em></li>
+      <li><b>7</b><a href="#p7"><span>Если что-то пошло не так</span></a><em>—</em></li>
+    </ol>
+  </div>
+</header>
+
+<nav class="chips" aria-label="Разделы">
+  <div class="chips-scroll">
+    <a class="chip" href="#p0" data-chip="p0">Подготовка</a>
+    <a class="chip" href="#p1" data-chip="p1">Доступ</a>
+    <a class="chip" href="#p2" data-chip="p2">Google</a>
+    <a class="chip" href="#p3" data-chip="p3">ChatGPT</a>
+    <a class="chip" href="#p4" data-chip="p4">iPhone</a>
+    <a class="chip" href="#p5" data-chip="p5">Android</a>
+    <a class="chip" href="#p6" data-chip="p6">Компьютер</a>
+    <a class="chip" href="#p7" data-chip="p7">Проблемы</a>
+    <a class="chip" href="#faq" data-chip="faq">Вопросы</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ================= ЧАСТЬ 0 ================= -->
+<section class="part" id="p0">
+  <div class="part-head">
+    <div class="part-num">0</div>
+    <h2>Что понадобится и о чём знать заранее</h2>
+  </div>
+  <p class="part-meta">Прочитайте до начала — сэкономит время дальше</p>
+
+  <p>Официальный сайт ChatGPT не открывается с российских IP-адресов, а приложение не показывается в российских App Store и Google Play. Всё остальное — обычная регистрация, как на любом сайте.</p>
+
+  <h3>Соберите заранее</h3>
+  <ul class="plain">
+    <li>Компьютер или телефон с интернетом.</li>
+    <li>Способ подключения через зарубежный IP-адрес — подробнее в части&nbsp;1.</li>
+    <li>15–40 минут спокойного времени. Сначала делайте всё на компьютере: там проще исправлять ошибки.</li>
+    <li>Блокнот (бумажный или в телефоне), чтобы записать логин и пароль.</li>
+  </ul>
+
+  <div class="note info">
+    <span class="lbl">Порядок важен</span>
+    <p>Сначала полностью заканчиваем один шаг, потом переходим к следующему. Самая частая ошибка новичков — начать регистрацию в ChatGPT, не подготовив доступ.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="lbl">Честно о рисках</span>
+    <p>Правила OpenAI не разрешают обходить региональные ограничения. Аккаунт могут заблокировать, особенно если постоянно менять страну подключения. Не привязывайте к нему важные рабочие процессы и не храните там ничего, что нельзя потерять.</p>
+  </div>
+
+  <div class="note danger">
+    <span class="lbl">Безопасность</span>
+    <p>Не покупайте «готовые аккаунты» и не вводите свои пароли на посторонних сайтах, которые обещают «ChatGPT без регистрации». Такие аккаунты уводят обратно, а пароли собирают.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p0"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 1 ================= -->
+<section class="part" id="p1">
+  <div class="part-head">
+    <div class="part-num">1</div>
+    <h2>Доступ: подключение через зарубежный IP</h2>
+  </div>
+  <p class="part-meta">Нужно на всех этапах: и при регистрации, и потом при работе</p>
+
+  <p>ChatGPT определяет страну по IP-адресу. Чтобы сайт открылся, соединение должно идти через сервер в другой стране. Дальше по тексту это называется просто «зарубежное подключение».</p>
+
+  <h3>Что стоит учесть при выборе</h3>
+  <ul class="plain">
+    <li><b>Страна сервера.</b> Лучше всего работают европейские — Нидерланды, Германия, Финляндия. Они ближе, значит быстрее. США тоже подходит, но отклик заметно выше.</li>
+    <li><b>Стабильность.</b> Если соединение отваливается посреди регистрации, форма может сбросить введённые данные. Проверьте связь заранее.</li>
+    <li><b>Одна страна на всё время.</b> Регистрируйтесь и потом заходите с одной и той же страны. Резкие скачки между странами — главная причина блокировок аккаунта.</li>
+    <li><b>Бесплатные решения.</b> Их обычно видно сервису, и на них часто выпадает ошибка при регистрации. Кроме того, бесплатные сервисы зарабатывают на данных пользователей.</li>
+  </ul>
+
+  <h3>Как проверить, что всё готово</h3>
+  <ol class="steps">
+    <li><span class="t">Включите зарубежное подключение</span>
+      <p>Дождитесь, пока индикатор покажет, что соединение установлено.</p></li>
+    <li><span class="t">Откройте в браузере любой сервис проверки IP</span>
+      <p>Например, наберите в поиске «my ip». Страна должна показываться зарубежная, а не Россия.</p></li>
+    <li><span class="t">Откройте <span class="ui">chatgpt.com</span></span>
+      <p>Если появилась страница входа — всё хорошо, идём дальше. Если вы видите сообщение об ошибке доступа, смените сервер на другую страну и обновите страницу.</p></li>
+  </ol>
+
+  <figure class="shot">
+    <div class="shot-slot shot-wide">Скриншот: главная страница chatgpt.com с кнопками «Log in» и «Sign up»</div>
+    <figcaption>Скрин 1.1 — так выглядит сайт, когда доступ настроен правильно</figcaption>
+  </figure>
+
+  <div class="note tip">
+    <span class="lbl">Совет</span>
+    <p>Откройте сайт в режиме инкогнито (в Chrome: <span class="ui">Ctrl</span>+<span class="ui">Shift</span>+<span class="ui">N</span>, на Mac <span class="ui">⌘</span>+<span class="ui">Shift</span>+<span class="ui">N</span>). Старые файлы cookie иногда выдают реальную страну, и сайт снова показывает ошибку.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p1"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 2 ================= -->
+<section class="part" id="p2">
+  <div class="part-head">
+    <div class="part-num">2</div>
+    <h2>Создаём аккаунт Google</h2>
+  </div>
+  <p class="part-meta">Даёт почту, вход в ChatGPT одной кнопкой и загрузку приложения на Android</p>
+
+  <p>Регистрироваться в ChatGPT можно и по обычной почте, но аккаунт Google удобнее: вход в один клик и нужен для Android. Если у вас уже есть Gmail, который не жалко, можно пропустить эту часть и перейти к&nbsp;<a href="#p3">части&nbsp;3</a>.</p>
+
+  <div class="note info">
+    <span class="lbl">Заводите отдельный аккаунт</span>
+    <p>Не используйте личную или рабочую почту, к которой привязаны банки и госуслуги. Новый аккаунт под ИИ-сервисы — спокойнее.</p>
+  </div>
+
+  <h3>Пошагово (на компьютере)</h3>
+  <ol class="steps">
+    <li><span class="t">Откройте страницу регистрации</span>
+      <p>Адрес: <span class="ui">accounts.google.com/signup</span>. Зарубежное подключение при этом лучше оставить включённым — тогда данные аккаунта совпадут со страной, из которой вы потом будете заходить.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: форма «Создайте аккаунт Google», поля имени и фамилии</div>
+        <figcaption>Скрин 2.1 — первый экран регистрации</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Выберите тип «Для личного пользования»</span>
+      <p>Google спросит, для чего аккаунт. Вариант для бизнеса требует лишних данных — он не нужен.</p></li>
+
+    <li><span class="t">Введите имя и фамилию</span>
+      <p>Латиницей. Это просто подпись в письмах, паспортные данные никто не проверяет.</p></li>
+
+    <li><span class="t">Укажите дату рождения и пол</span>
+      <p>Важно: возраст должен быть <b>18 лет и старше</b>. У аккаунтов с возрастом младше действуют ограничения, из-за которых потом не получится завести ChatGPT.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: экран с полями даты рождения и пола</div>
+        <figcaption>Скрин 2.2 — дата рождения</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Придумайте адрес почты</span>
+      <p>Google предложит варианты или разрешит создать свой. Короткие адреса почти все заняты — добавьте цифры или слово. Запишите адрес целиком, вместе с <span class="ui">@gmail.com</span>.</p></li>
+
+    <li><span class="t">Придумайте пароль</span>
+      <p>Не меньше 12 символов: заглавные и строчные буквы, цифры, знак. Сразу запишите его в блокнот или менеджер паролей. Восстановить пароль от аккаунта без привязанного телефона очень сложно.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: поле «Пароль» и «Подтвердите пароль»</div>
+        <figcaption>Скрин 2.3 — создание пароля</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Если попросят номер телефона</span>
+      <p>Google запрашивает номер не всегда — это зависит от браузера, IP и истории устройства. Российский номер здесь обычно принимается нормально: код приходит по SMS, вводите его и продолжайте.</p>
+      <p class="muted small">Если номер не принимается, попробуйте: другой браузер, режим инкогнито, другой сервер подключения или регистрацию прямо с телефона — через <span class="ui">Настройки → Аккаунты → Добавить аккаунт → Google</span>. Там проверка проходит мягче.</p></li>
+
+    <li><span class="t">Добавьте резервный адрес почты</span>
+      <p>Шаг необязательный, но именно он спасает, если забудете пароль. Подойдёт любая ваша существующая почта.</p></li>
+
+    <li><span class="t">Примите условия — аккаунт готов</span>
+      <p>Откроется ваш почтовый ящик. Проверьте, что письма приходят: отправьте себе тестовое письмо с другого адреса.</p></li>
+
+    <li><span class="t">Включите двухэтапную аутентификацию</span>
+      <p><span class="ui">myaccount.google.com</span> → <span class="ui">Безопасность</span> → <span class="ui">Двухэтапная аутентификация</span>. Займёт две минуты и заметно снижает риск угона аккаунта.</p></li>
+  </ol>
+
+  <div class="note warn">
+    <span class="lbl">Частая ошибка</span>
+    <p>Новый аккаунт, созданный через зарубежное подключение и тут же открытый с российского IP, иногда просит дополнительное подтверждение. Первые несколько дней заходите в него с тем же подключением, что и при регистрации.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p2"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 3 ================= -->
+<section class="part" id="p3">
+  <div class="part-head">
+    <div class="part-num">3</div>
+    <h2>Регистрация в ChatGPT</h2>
+  </div>
+  <p class="part-meta">Самая ответственная часть. Зарубежное подключение обязательно должно быть включено</p>
+
+  <ol class="steps">
+    <li><span class="t">Проверьте подключение</span>
+      <p>Страна в проверке IP — зарубежная. Если нет, вернитесь к <a href="#p1">части&nbsp;1</a>: без этого дальше ничего не получится.</p></li>
+
+    <li><span class="t">Откройте <span class="ui">chatgpt.com</span> и нажмите «Sign up»</span>
+      <p>Кнопка «Log in» — для тех, у кого аккаунт уже есть. Нам нужна вторая, «Sign up» (зарегистрироваться).</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: стартовый экран, кнопка «Sign up» выделена рамкой</div>
+        <figcaption>Скрин 3.1 — кнопка регистрации</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Выберите «Continue with Google»</span>
+      <p>Это быстрее и надёжнее, чем регистрация по почте с паролем: не придётся подтверждать адрес письмом.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: форма входа с кнопками Google, Microsoft, Apple</div>
+        <figcaption>Скрин 3.2 — способы регистрации</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Выберите созданный аккаунт Google и разрешите доступ</span>
+      <p>Google покажет, какие данные передаются: имя и адрес почты. Нажмите <span class="ui">Продолжить</span>.</p></li>
+
+    <li><span class="t">Заполните имя и дату рождения</span>
+      <p>ChatGPT спросит, как к вам обращаться, и попросит дату рождения. Возраст — 18+, иначе аккаунт переведут в детский режим с урезанными возможностями.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: экран «Tell us about you» с полями имени и даты рождения</div>
+        <figcaption>Скрин 3.3 — данные пользователя</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Если попросят номер телефона</span>
+      <p>Сейчас телефон спрашивают не у всех — для большинства достаточно подтверждённой почты. Но если экран с номером всё-таки появился:</p>
+      <ul class="plain">
+        <li><b>Российский номер не подойдёт</b> — его просто не будет в списке стран.</li>
+        <li><b>Самый надёжный вариант</b> — попросить родственника или друга за границей принять SMS на свой номер. На один номер можно завести до двух аккаунтов.</li>
+        <li><b>Зарубежная eSIM</b> — работает, но это отдельная история с оформлением и оплатой.</li>
+        <li><b>Сервисы аренды виртуальных номеров</b> — дешёвые номера часто уже «сожжены» другими регистрациями, а восстановить доступ к аккаунту через чужой номер вы потом не сможете. Если решите пользоваться, берите номер той же страны, что и ваше подключение.</li>
+      </ul>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: экран ввода номера телефона со списком стран</div>
+        <figcaption>Скрин 3.4 — подтверждение номера (появляется не всегда)</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Готово — открылось окно чата</span>
+      <p>Напишите в поле внизу что-нибудь простое, например «привет, расскажи о себе», и нажмите <span class="ui">Enter</span>. Если ответ пришёл — аккаунт работает. ChatGPT понимает русский язык, переключать ничего не нужно.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: рабочее окно чата с первым ответом</div>
+        <figcaption>Скрин 3.5 — первый диалог</figcaption>
+      </figure>
+    </li>
+  </ol>
+
+  <div class="note info">
+    <span class="lbl">Про платную подписку</span>
+    <p>Бесплатной версии хватает для большинства задач. Оплатить ChatGPT Plus российской картой на официальном сайте не получится — нужна зарубежная карта или счёт. Начните с бесплатного тарифа и решите позже, нужно ли больше.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p3"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 4 ================= -->
+<section class="part" id="p4">
+  <div class="part-head">
+    <div class="part-num">4</div>
+    <h2>Устанавливаем на iPhone</h2>
+  </div>
+  <p class="part-meta">В российском App Store приложения нет, поэтому понадобится Apple ID другой страны</p>
+
+  <p>Есть два пути. <b>Второй Apple ID</b> — аккуратнее: основной аккаунт со всеми подписками остаётся нетронутым. <b>Смена региона основного</b> — проще, но затрагивает подписки и способы оплаты. Ниже — первый вариант.</p>
+
+  <h3>Создаём второй Apple ID</h3>
+  <ol class="steps">
+    <li><span class="t">Откройте <span class="ui">account.apple.com</span> в браузере</span>
+      <p>Можно прямо на телефоне. Выберите создание нового аккаунта.</p></li>
+
+    <li><span class="t">Заполните данные</span>
+      <p>Страна — та, где приложение доступно. Чаще всего берут <b>США</b> или <b>Турцию</b>. Имя и фамилия любые, дата рождения — 18+. Почту можно указать вашу новую от Google.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: форма создания Apple ID с выпадающим списком стран</div>
+        <figcaption>Скрин 4.1 — выбор страны аккаунта</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Подтвердите почту кодом</span>
+      <p>Код придёт письмом. Телефон на этом этапе можно указать российский — он нужен только для восстановления.</p></li>
+
+    <li><span class="t">Выйдите из App Store на телефоне</span>
+      <p><span class="ui">Настройки</span> → нажмите своё имя вверху → <span class="ui">Медиаматериалы и покупки</span> → <span class="ui">Выйти</span>. Важно: выходите только из магазина, а не из iCloud, иначе с телефона пропадут фото и контакты.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Скриншот: раздел «Медиаматериалы и покупки» в настройках</div>
+        <figcaption>Скрин 4.2 — выход только из магазина</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Войдите новым Apple ID в App Store</span>
+      <p>Откройте App Store, нажмите на иконку профиля вверху справа и войдите новым аккаунтом. Магазин переключится на выбранную страну — интерфейс станет на её языке.</p></li>
+
+    <li><span class="t">Если попросят способ оплаты — выберите «None»</span>
+      <p>Вариант <span class="ui">None</span> (или <span class="ui">Нет</span>) есть только если страна выбрана корректно и вы не покупали ничего платного. Адрес можно взять любой существующий в этой стране.</p></li>
+
+    <li><span class="t">Найдите приложение и установите</span>
+      <p>В поиске наберите <span class="ui">ChatGPT</span>. Разработчик должен быть <b>OpenAI</b> — подделок в магазине много, смотрите на имя разработчика, а не на иконку.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Скриншот: карточка приложения ChatGPT, видно имя разработчика OpenAI</div>
+        <figcaption>Скрин 4.3 — проверяем разработчика</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Вернитесь в свой основной Apple ID</span>
+      <p>Тем же путём: <span class="ui">Настройки</span> → имя → <span class="ui">Медиаматериалы и покупки</span> → войти обратно. Установленное приложение останется на телефоне и продолжит работать.</p>
+      <p class="muted small">Нюанс: обновлять его нужно, снова заходя под зарубежным аккаунтом. Раз в пару месяцев — не страшно.</p></li>
+
+    <li><span class="t">Запустите ChatGPT и войдите</span>
+      <p>Включите зарубежное подключение <b>до запуска</b> приложения, нажмите <span class="ui">Continue with Google</span> и выберите свой аккаунт.</p></li>
+  </ol>
+
+  <div class="note warn">
+    <span class="lbl">Пока вы в зарубежном аккаунте</span>
+    <p>Российские подписки (Apple Music, iCloud и другие) временно недоступны и обновления других приложений могут не ставиться. После возврата в основной аккаунт всё восстанавливается.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p4"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 5 ================= -->
+<section class="part" id="p5">
+  <div class="part-head">
+    <div class="part-num">5</div>
+    <h2>Устанавливаем на Android</h2>
+  </div>
+  <p class="part-meta">Здесь проще, чем на iPhone</p>
+
+  <h3>Способ A — через Google Play (рекомендуется)</h3>
+  <ol class="steps">
+    <li><span class="t">Включите зарубежное подключение</span>
+      <p>Google Play определяет страну по IP при первом входе аккаунта.</p></li>
+
+    <li><span class="t">Добавьте на телефон новый аккаунт Google</span>
+      <p><span class="ui">Настройки</span> → <span class="ui">Аккаунты</span> → <span class="ui">Добавить аккаунт</span> → <span class="ui">Google</span>. Подойдёт созданный в <a href="#p2">части&nbsp;2</a>.</p></li>
+
+    <li><span class="t">Переключитесь на него в Google Play</span>
+      <p>Откройте Play Маркет, нажмите на аватар вверху справа и выберите нужный аккаунт.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Скриншот: меню переключения аккаунтов в Google Play</div>
+        <figcaption>Скрин 5.1 — выбор аккаунта</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Найдите ChatGPT и установите</span>
+      <p>Разработчик — <b>OpenAI</b>. Проверяйте: в Play много приложений-клонов с похожими названиями и иконками.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-phone">Скриншот: карточка ChatGPT в Google Play с разработчиком OpenAI</div>
+        <figcaption>Скрин 5.2 — официальное приложение</figcaption>
+      </figure>
+    </li>
+
+    <li><span class="t">Запустите и войдите через Google</span>
+      <p>Подключение должно быть включено при каждом использовании приложения.</p></li>
+  </ol>
+
+  <h3>Способ B — установочный файл APK</h3>
+  <p>Если с Play не вышло, Android разрешает ставить приложения файлом. Берите файл только с проверенных каталогов вроде APKMirror, где проверяют цифровую подпись разработчика.</p>
+  <ol class="steps">
+    <li><span class="t">Скачайте APK-файл</span>
+      <p>В каталоге найдите ChatGPT, убедитесь, что издатель — OpenAI, и скачайте последнюю версию.</p></li>
+    <li><span class="t">Разрешите установку из этого источника</span>
+      <p>Телефон сам предложит это при открытии файла: <span class="ui">Настройки</span> → <span class="ui">Разрешить установку из этого источника</span>. Разрешение выдаётся конкретному браузеру.</p></li>
+    <li><span class="t">Откройте файл из загрузок и подтвердите установку</span>
+      <p>После установки разрешение лучше сразу отключить обратно.</p></li>
+  </ol>
+
+  <div class="note danger">
+    <span class="lbl">Осторожно с APK</span>
+    <p>Файлы с случайных сайтов, из мессенджеров и по ссылкам «скачать бесплатно ChatGPT Plus» — самый распространённый способ занести на телефон вирус, который читает SMS и банковские приложения. Обновлять такое приложение тоже придётся вручную.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p5"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 6 ================= -->
+<section class="part" id="p6">
+  <div class="part-head">
+    <div class="part-num">6</div>
+    <h2>Устанавливаем на компьютер</h2>
+  </div>
+  <p class="part-meta">Windows, MacBook — и запасной вариант, который работает везде</p>
+
+  <h3>Windows 10 и 11</h3>
+  <ol class="steps">
+    <li><span class="t">Включите зарубежное подключение</span></li>
+    <li><span class="t">Откройте <span class="ui">chatgpt.com/download</span></span>
+      <p>Это официальная страница загрузки OpenAI. Скачивать программу из поисковой выдачи по запросу «chatgpt скачать» не стоит — первые строки там часто занимают подделки.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: страница загрузки с кнопками для Windows и macOS</div>
+        <figcaption>Скрин 6.1 — официальная страница загрузки</figcaption>
+      </figure>
+    </li>
+    <li><span class="t">Запустите скачанный файл и дождитесь установки</span>
+      <p>Приложение поставится само и появится в меню «Пуск».</p></li>
+    <li><span class="t">Войдите через Google</span>
+      <p>Подключение при первом входе — обязательно включённое.</p></li>
+  </ol>
+
+  <h3>MacBook и iMac</h3>
+  <ol class="steps">
+    <li><span class="t">Проверьте версию системы</span>
+      <p>Меню <span class="ui"></span> → <span class="ui">Об этом Mac</span>. Нужна macOS 14 (Sonoma) или новее. Если система старее — используйте запасной вариант ниже.</p></li>
+    <li><span class="t">Скачайте файл с <span class="ui">chatgpt.com/download</span></span>
+      <p>Загрузится файл с расширением <span class="ui">.dmg</span>.</p></li>
+    <li><span class="t">Откройте файл и перетащите значок в папку «Программы»</span>
+      <p>Появится окно с иконкой приложения и стрелкой к папке Applications — просто перетащите мышью.</p>
+      <figure class="shot">
+        <div class="shot-slot shot-wide">Скриншот: окно установки .dmg с перетаскиванием в Applications</div>
+        <figcaption>Скрин 6.2 — установка на macOS</figcaption>
+      </figure>
+    </li>
+    <li><span class="t">Запустите из Launchpad и войдите через Google</span>
+      <p>При первом запуске macOS спросит, точно ли открывать программу из интернета — подтвердите.</p></li>
+  </ol>
+
+  <h3>Запасной вариант для любого компьютера</h3>
+  <p>Если программа не ставится, сайт работает не хуже. В браузере Chrome или Edge можно сделать из него отдельное приложение с иконкой:</p>
+  <ol class="steps">
+    <li><span class="t">Откройте <span class="ui">chatgpt.com</span> и войдите</span></li>
+    <li><span class="t">Нажмите три точки в правом верхнем углу браузера</span>
+      <p>Chrome: <span class="ui">Трансляция, сохранение и доступ</span> → <span class="ui">Установить страницу как приложение</span>. Edge: <span class="ui">Приложения</span> → <span class="ui">Установить этот сайт как приложение</span>.</p></li>
+    <li><span class="t">Готово</span>
+      <p>На рабочем столе появится ярлык, который открывает ChatGPT в отдельном окне без адресной строки. Выглядит и работает как обычная программа.</p></li>
+  </ol>
+
+  <button class="done-btn" aria-pressed="false" data-for="p6"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= ЧАСТЬ 7 ================= -->
+<section class="part" id="p7">
+  <div class="part-head">
+    <div class="part-num">7</div>
+    <h2>Если что-то пошло не так</h2>
+  </div>
+  <p class="part-meta">Разбор частых ошибок</p>
+
+  <table>
+    <thead><tr><th style="width:44%">Что видите</th><th>Что делать</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>Страница не открывается или ошибка доступа по региону</td>
+        <td>Подключение выключилось или сервер попал в чёрный список. Смените страну сервера и обновите страницу в режиме инкогнито.</td>
+      </tr>
+      <tr>
+        <td>«Signup is currently unavailable»</td>
+        <td>Временная перегрузка или сервер помечен как подозрительный. Подождите час или смените страну. Многократные попытки подряд только вредят.</td>
+      </tr>
+      <tr>
+        <td>Номер телефона не принимается</td>
+        <td>Номер уже использован для регистрации. Нужен другой — см. варианты в <a href="#p3">части&nbsp;3</a>.</td>
+      </tr>
+      <tr>
+        <td>Приложение не находится в магазине</td>
+        <td>Вы не переключились на зарубежный аккаунт или магазин не обновил страну. Закройте магазин полностью и откройте заново.</td>
+      </tr>
+      <tr>
+        <td>Ответы приходят очень медленно</td>
+        <td>Дело в подключении, а не в ChatGPT. Выберите сервер ближе географически.</td>
+      </tr>
+      <tr>
+        <td>Аккаунт заблокирован</td>
+        <td>Чаще всего — из-за частой смены стран подключения. Есть форма апелляции на сайте OpenAI, но шансы невелики. Заводите новый аккаунт и держитесь одной страны.</td>
+      </tr>
+      <tr>
+        <td>Просят подтвердить, что вы человек, снова и снова</td>
+        <td>Признак «грязного» IP, которым пользуется много людей. Помогает только смена сервера.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="note tip">
+    <span class="lbl">Правила долгой жизни аккаунта</span>
+    <p>Одна страна подключения. Один аккаунт на человека. Не заходить одновременно с российского и зарубежного IP. Не передавать доступ другим людям.</p>
+  </div>
+
+  <button class="done-btn" aria-pressed="false" data-for="p7"><span class="box"></span>Часть пройдена</button>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="part" id="faq">
+  <div class="part-head">
+    <div class="part-num">?</div>
+    <h2>Короткие ответы</h2>
+  </div>
+  <p class="part-meta">То, что спрашивают чаще всего</p>
+
+  <details><summary>Нужны ли документы или паспортные данные?</summary>
+    <p>Нет. Достаточно адреса почты, иногда — номера телефона.</p></details>
+
+  <details><summary>Можно ли пользоваться бесплатно?</summary>
+    <p>Да. Бесплатный тариф даёт доступ к основным возможностям с ограничением на количество сообщений в период времени. Платная подписка снимает лимиты и добавляет продвинутые режимы.</p></details>
+
+  <details><summary>Нужно ли держать подключение включённым всё время?</summary>
+    <p>Только когда пользуетесь ChatGPT. В остальное время можно выключать.</p></details>
+
+  <details><summary>Понимает ли он русский язык?</summary>
+    <p>Да, свободно. Пишите по-русски, ответы будут на русском.</p></details>
+
+  <details><summary>Один аккаунт на телефоне и компьютере — это нормально?</summary>
+    <p>Да, история переписки синхронизируется между устройствами.</p></details>
+
+  <details><summary>Что делать, если ничего не получается?</summary>
+    <p>Есть российские сервисы и другие ИИ-ассистенты, которые работают без подключения из-за рубежа. Для большинства повседневных задач разница не критична.</p></details>
+</section>
+
+<div class="editor-note">
+  <p><b>Служебный блок — удалите перед публикацией.</b></p>
+  <p>Места под скриншоты помечены пунктирными рамками, в каждой написано, какой именно кадр нужен. Как заменить рамку на картинку — в комментарии в самом начале файла (откройте его в блокноте).</p>
+  <p>Всего кадров: 15. Снимайте на светлой теме интерфейса и закрашивайте почту, номер телефона и имя на скриншотах перед публикацией.</p>
+</div>
+
+<footer>
+  <p>Инструкция описывает общедоступные технические шаги и не является юридической консультацией. Использование сервиса вопреки региональным ограничениям может нарушать пользовательское соглашение OpenAI и привести к блокировке аккаунта. Перед публикацией материала проверьте требования законодательства вашей страны.</p>
+</footer>
+
+</main>
+
+<script>
+  // Отметка «часть пройдена» — подсвечивает вкладку сверху. Без сохранения между сессиями.
+  document.querySelectorAll('.done-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var on = btn.getAttribute('aria-pressed') === 'true';
+      btn.setAttribute('aria-pressed', String(!on));
+      var chip = document.querySelector('[data-chip="' + btn.dataset.for + '"]');
+      if (chip) chip.setAttribute('data-done', on ? '0' : '1');
+    });
+  });
+</script>
+</body>
+</html>
