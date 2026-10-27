@@ -138,6 +138,7 @@ h3{margin:32px 0 10px;font-size:20px;line-height:1.3;font-weight:700;letter-spac
 .note .lbl{
   display:inline-flex;align-items:center;gap:6px;margin-bottom:10px;
   padding:3px 10px 3px 8px;border-radius:999px;font-size:13px;font-weight:700;line-height:1.5;
+  max-width:100%;
 }
 .note .lbl::before{content:"";flex:0 0 14px;height:14px;background:center/14px 14px no-repeat}
 .note.info,.note.tip{background:#e3f5ec;color:#0f4a35}
@@ -263,8 +264,11 @@ footer{padding:32px 0 60px}
 footer p{margin:0;font-size:14px;color:var(--ink-soft)}
 
 /* ---------- оглавление ---------- */
-.index-list{list-style:none;margin:0;padding:0;display:grid;gap:4px}
-.index-list li{padding:14px;border-radius:16px}
+.index-list{list-style:none;margin:0;padding:0;display:grid}
+.index-list li{padding:16px 14px;border-radius:16px}
+.index-list li+li{border-top:1px solid var(--line);border-radius:0}
+.index-list li:hover{border-radius:16px}
+.index-list li:hover,.index-list li:hover+li{border-top-color:transparent}
 .index-list li:hover{background:var(--wash)}
 .index-list a{font-size:18px;font-weight:700;color:var(--ink);text-decoration:none;line-height:1.3}
 .index-list a:hover{color:var(--blue)}
@@ -291,6 +295,9 @@ table.compare tr:last-child>*{border-bottom:0}
   main{padding:0 16px}
   .route-wrap{padding:0 12px}
   .note{padding:18px}
+  /* на узком экране плашка тянется на всю ширину врезки: так длинная
+     подпись переносится аккуратно, а не ломает «таблетку» */
+  .note .lbl{display:flex;border-radius:12px;padding:5px 10px}
   .note.danger{padding:20px}
   .steps-nav{margin-left:0}
 }
