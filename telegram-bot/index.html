@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Бот не достучался до Telegram</title>
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="kicker"><span>Из нашего опыта</span><span class="sep">·</span><span>проверено 27 октября 2026</span></p>
+    <h1>Telegram-бот на российском сервере перестал отвечать: что случилось и как починили</h1>
+    <p class="lede">Три бота на сервере в России перестали достучаться до Telegram. Как нашли причину и что сделали — без пошаговой настройки.</p>
+  </div>
+</header>
+
+<div class="route-wrap" id="route">
+  <div class="route-card">
+    <p class="route-label">Маршрут · по порядку</p>
+    <ol class="route">
+      <li><a href="#p0"><b>0</b><span>Главное до начала</span><em>1 мин</em></a></li>
+      <li><a href="#p1"><b>1</b><span>Что сломалось</span><em>1 мин</em></a></li>
+      <li><a href="#p2"><b>2</b><span>Как нашли причину</span><em>2 мин</em></a></li>
+      <li><a href="#p3"><b>3</b><span>Почему не перенесли всё за границу</span><em>1 мин</em></a></li>
+      <li><a href="#p4"><b>4</b><span>Что сделали</span><em>2 мин</em></a></li>
+      <li><a href="#p5"><b>5</b><span>Что поменяли в коде</span><em>1 мин</em></a></li>
+      <li><a href="#p6"><b>6</b><span>Результат</span><em>1 мин</em></a></li>
+      <li><a href="#p7"><b>7</b><span>Попутно</span><em>1 мин</em></a></li>
+    </ol>
+  </div>
+</div>
+
+<nav class="chips" aria-label="Разделы">
+  <div class="chips-scroll">
+    <a class="chip" href="#p0">Начало</a>
+    <a class="chip" href="#p1">Поломка</a>
+    <a class="chip" href="#p2">Причина</a>
+    <a class="chip" href="#p3">Закон</a>
+    <a class="chip" href="#p4">Решение</a>
+    <a class="chip" href="#p5">Код</a>
+    <a class="chip" href="#p6">Итог</a>
+    <a class="chip" href="#p7">Попутно</a>
+    <a class="chip" href="#faq">Вопросы</a>
+  </div>
+</nav>
+
+<main>
+
+<section class="part" id="p0">
+  <div class="part-head">
+    <div class="part-num">0</div>
+    <div><h2>Главное до начала</h2><p class="part-meta">Вся история в трёх строках</p></div>
+  </div>
+
+  <ul class="plain">
+    <li>27 октября на сервере в России перестали нормально работать три наших бота: бот GetPoker — сервиса для покерных клубов, где играют на очки, без денег, — и ещё два бота на том же сервере.</li>
+    <li>Причина не в коде и не в сервере, а в связи российского сервера с Telegram. С 10 февраля 2026 года Роскомнадзор официально ограничивает Telegram.</li>
+    <li>Сайт и база остались в России. Сообщения в Telegram идут через маленький сервер в Нидерландах. Около 2 $ в месяц.</li>
+  </ul>
+
+  <div class="note warn">
+    <span class="lbl">Не путайте две разные вещи</span>
+    <p>Если Telegram упал у всех — это видно по новостям и сервисам сбоев. Если Telegram у вас на телефоне работает, а бот на сервере — нет, это другая проблема: связь именно с сервера.</p>
+  </div>
+</section>
+
+<section class="part" id="p1">
+  <div class="part-head">
+    <div class="part-num">1</div>
+    <div><h2>Что сломалось</h2><p class="part-meta">Как это выглядело снаружи</p></div>
+  </div>
+
+  <div class="errors">
+    <div class="err">
+      <div><p class="err-title">«Telegram не ответил»</p></div>
+      <p class="err-desc">Так сайт сообщал, что анонс игры с картинкой не ушёл в канал клуба.</p>
+    </div>
+  </div>
+
+  <ul class="plain">
+    <li>Бот отвечал через раз.</li>
+    <li>Ещё два бота на том же сервере перестали работать.</li>
+  </ul>
+</section>
+
+<section class="part" id="p2">
+  <div class="part-head">
+    <div class="part-num">2</div>
+    <div><h2>Как нашли причину</h2><p class="part-meta">Один замер вместо дня догадок</p></div>
+  </div>
+
+  <p>Посмотрели журналы сервера и замерили связь: сколько идёт ответ с нашего сервера до Telegram и, для сравнения, до GitHub.</p>
+
+  <div class="cards">
+    <div class="card line"><p class="card-title">До Telegram</p><p>Из трёх попыток соединиться две не прошли за 20 секунд, третья заняла 13 секунд. Отдельные запросы висели до 5 минут.</p></div>
+    <div class="card line"><p class="card-title">До GitHub</p><p>0,15 секунды. С того же сервера, в ту же минуту.</p></div>
+  </div>
+
+  <p>Значит, код и сервер в порядке. Не работает путь от российского сервера до Telegram.</p>
+
+  <h3>Как понять, что у вас то же самое</h3>
+  <p>Сравните, сколько ваш сервер соединяется с api.telegram.org и с любым крупным зарубежным сайтом, например github.com. Доли секунды — норма. Секунды или обрыв — та же проблема.</p>
+
+  <div class="note warn">
+    <span class="lbl">Частое заблуждение</span>
+    <p>Сначала мы подумали, что виновата большая картинка. Нет: обычные текстовые сообщения тоже висели.</p>
+  </div>
+</section>
+
+<section class="part" id="p3">
+  <div class="part-head">
+    <div class="part-num">3</div>
+    <div><h2>Почему не перенесли всё за границу</h2><p class="part-meta">Две причины оставить сайт в России</p></div>
+  </div>
+
+  <div class="cards">
+    <div class="card line"><p class="card-title">Закон</p><p>Закон о персональных данных (152-ФЗ, ст. 18 ч. 5) требует хранить базу пользователей из России в России.</p></div>
+    <div class="card line"><p class="card-title">Скорость</p><p>Зарубежные сайты у пользователей в России открываются хуже.</p></div>
+  </div>
+
+  <p>Поэтому за границу вынесли только одно — отправку сообщений в Telegram.</p>
+</section>
+
+<section class="part" id="p4">
+  <div class="part-head">
+    <div class="part-num">4</div>
+    <div><h2>Что сделали</h2><p class="part-meta">Маленький промежуточный сервер в Европе</p></div>
+  </div>
+
+  <p>Арендовали самый простой сервер в Нидерландах: 1 ядро, 1 ГБ памяти, 10 ГБ диска. Около 2 $ в месяц. Первый вариант у другого хостера стоил 1 820 ₽ в месяц — отказались.</p>
+
+  <ul class="plain">
+    <li>Сервер только передаёт запросы нашего основного сервера к Telegram. Остальных не пускает.</li>
+    <li>Журналов запросов не ведёт: в них попали бы ключи ботов.</li>
+  </ul>
+
+  <div class="note danger">
+    <span class="lbl">Только свой</span>
+    <p>В каждом запросе к Telegram есть ключ бота. Чужой промежуточный сервер его видит — а с ключом можно управлять ботом. Поэтому только свой.</p>
+  </div>
+
+  <div class="note info">
+    <span class="lbl">Почему без названия хостера</span>
+    <p>Это рассказ о нашем опыте, а не рекомендация. Важен не хостер, а то, что сервер ваш и стоит за границей.</p>
+  </div>
+</section>
+
+<section class="part" id="p5">
+  <div class="part-head">
+    <div class="part-num">5</div>
+    <div><h2>Что поменяли в коде</h2><p class="part-meta">Чтобы переключаться и откатываться без нервов</p></div>
+  </div>
+
+  <ul class="plain">
+    <li>Адрес Telegram стал настройкой. Переключить или откатить — одна строка.</li>
+    <li>Отправка стала терпеливее: до минуты ожидания и до трёх попыток.</li>
+    <li>Если ответ потерялся, пост второй раз не отправляется — чтобы не было дублей.</li>
+    <li>Картинка уходит в фоне, на сайте видно «Публикуем…».</li>
+  </ul>
+</section>
+
+<section class="part" id="p6">
+  <div class="part-head">
+    <div class="part-num">6</div>
+    <div><h2>Результат</h2><p class="part-meta">Запрос с нашего сервера в Telegram: напрямую и через свой сервер</p></div>
+  </div>
+
+  <div class="cards">
+    <div class="card soft"><p class="card-kicker">Напрямую</p><p>Прошёл 1 запрос из 3, за 13 секунд. Два не дождались ответа за 20 секунд, раньше один висел 300 секунд. Файл 1 МБ не доходил — «Telegram не ответил».</p></div>
+    <div class="card soft"><p class="card-kicker">Через свой сервер</p><p>Прошли 5 запросов из 5, за 0,16–0,30 секунды. Файл 1 МБ — за 0,17 секунды.</p></div>
+  </div>
+
+  <ul class="plain">
+    <li>Анонс, который не публиковался, опубликовался.</li>
+    <li>Два других бота на том же сервере переключили так же — тоже работают.</li>
+  </ul>
+</section>
+
+<section class="part" id="p7">
+  <div class="part-head">
+    <div class="part-num">7</div>
+    <div><h2>Попутно</h2><p class="part-meta">Раз уж залезли на серверы</p></div>
+  </div>
+
+  <ul class="plain">
+    <li>На основной сервер теперь входим только по ключу, без пароля.</li>
+    <li>На новом сервере включены автообновления безопасности. Перезагрузка, если нужна, — в 4 утра.</li>
+  </ul>
+
+  <h3>Чего мы не знаем</h3>
+  <p>Сколько проработает такой путь и будет ли полная блокировка Telegram. Поэтому следим за сбоями. Если новый сервер перестанет работать — поднимем другой, в другой стране, и переключим одной строкой.</p>
+</section>
+
+<section class="part" id="faq">
+  <div class="part-head">
+    <div class="part-num">?</div>
+    <div><h2>Короткие ответы</h2><p class="part-meta">То, что спрашивают чаще всего</p></div>
+  </div>
+
+  <div class="faq">
+    <details><summary><span>Сколько это стоит?</span></summary>
+      <p>Около 2 $ в месяц.</p></details>
+    <details><summary><span>Нужно ли это, если бот на зарубежном хостинге?</span></summary>
+      <p>Нет. Проблема у серверов в России.</p></details>
+    <details><summary><span>Почему не перенести всё за границу?</span></summary>
+      <p>Закон о персональных данных и скорость сайта для пользователей в России. Подробнее — в <a href="#p3">части 3</a>.</p></details>
+    <details><summary><span>Что, если этот сервер перестанет работать?</span></summary>
+      <p>Новый сервер и смена адреса — около 15 минут.</p></details>
+  </div>
+
+  <div class="next">
+    <p class="next-kicker">Что дальше</p>
+    <p class="next-title">Через 30 минут работы проверить, что ошибок связи нет: одна удачная попытка ничего не доказывает.</p>
+    <a class="next-btn" href="../">Все инструкции</a>
+  </div>
+</section>
+
+<footer>
+  <p>Текст описывает наш опыт и общедоступные технические шаги и не является юридической консультацией. Проверено 27 октября 2026 года.</p>
+</footer>
+
+</main>
+
+<script>
+  // 1. Переключатель «по шагам»: показывает шаги ol.steps по одному, с счётчиком.
+  //    Без скрипта страница остаётся обычным списком.
+  (function () {
+    var toggle = document.getElementById('stepsToggle');
+    var lists = Array.prototype.slice.call(document.querySelectorAll('ol.steps'));
+    if (!toggle || !lists.length) return;
+
+    var groups = lists.map(function (list) {
+      var items = Array.prototype.slice.call(list.children).filter(function (el) {
+        return el.tagName === 'LI';
+      });
+      var nav = document.createElement('div');
+      nav.className = 'steps-nav';
+      nav.hidden = true;
+      nav.innerHTML =
+        '<button type="button" class="steps-prev">Назад</button>' +
+        '<span class="steps-count"></span>' +
+        '<button type="button" class="steps-next">Вперёд</button>';
+      list.insertAdjacentElement('afterend', nav);
+
+      var group = {
+        list: list, items: items, nav: nav, index: 0,
+        prevBtn: nav.querySelector('.steps-prev'),
+        nextBtn: nav.querySelector('.steps-next'),
+        count: nav.querySelector('.steps-count')
+      };
+      group.prevBtn.addEventListener('click', function () { move(group, -1); });
+      group.nextBtn.addEventListener('click', function () { move(group, 1); });
+      return group;
+    });
+
+    function render(group) {
+      var stepMode = document.body.classList.contains('steps-mode');
+      group.count.textContent = 'Шаг ' + (group.index + 1) + ' из ' + group.items.length;
+      group.prevBtn.disabled = group.index === 0;
+      group.nextBtn.disabled = group.index === group.items.length - 1;
+      group.items.forEach(function (li, i) { li.hidden = stepMode && i !== group.index; });
+      // скрытые шаги не считаются счётчиком CSS, поэтому номер видимого задаём явно
+      group.list.style.counterReset = stepMode ? 'st ' + group.index : '';
+    }
+
+    function move(group, delta) {
+      group.index = Math.min(Math.max(group.index + delta, 0), group.items.length - 1);
+      render(group);
+    }
+
+    toggle.addEventListener('click', function () {
+      var on = document.body.classList.toggle('steps-mode');
+      toggle.setAttribute('aria-pressed', String(on));
+      toggle.textContent = on ? 'Списком' : 'По шагам';
+      groups.forEach(function (group) { group.nav.hidden = !on; render(group); });
+    });
+  })();
+
+  // 2. Панель разделов выезжает сверху, когда карточка маршрута ушла за экран.
+  //    Без скрипта панель просто прилипает к верху (position: sticky).
+  (function () {
+    var nav = document.querySelector('nav.chips');
+    var route = document.getElementById('route');
+    if (!nav || !route || !('IntersectionObserver' in window)) return;
+    document.documentElement.classList.add('nav-auto');
+    new IntersectionObserver(function (entries) {
+      var e = entries[0];
+      nav.classList.toggle('nav-on', !e.isIntersecting && e.boundingClientRect.top < 0);
+    }).observe(route);
+  })();
+</script>
+<script src="../assets/tg.js"></script>
+</body>
+</html>
