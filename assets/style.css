@@ -63,6 +63,11 @@ b,strong{font-weight:700}
 .hero::before,.hero::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
 .hero::before{width:380px;height:380px;background:var(--yellow);right:-150px;top:-120px}
 .hero::after{width:240px;height:240px;background:var(--pink);left:-110px;bottom:30px}
+/* круги в шапке едва заметно плавают; при «уменьшить движение» стоят */
+.hero::before{animation:hero-drift-a 9s ease-in-out infinite alternate}
+.hero::after{animation:hero-drift-b 12s ease-in-out infinite alternate}
+@keyframes hero-drift-a{to{transform:translate(-14px,12px)}}
+@keyframes hero-drift-b{to{transform:translate(12px,-10px)}}
 .hero-inner{position:relative;z-index:1;max-width:48rem;margin:0 auto}
 .kicker{
   display:inline-flex;flex-wrap:wrap;justify-content:center;gap:0 8px;
@@ -147,7 +152,7 @@ h3{margin:32px 0 10px;font-size:20px;line-height:1.3;font-weight:700;letter-spac
 .note a{color:inherit}
 
 /* ---------- списки ---------- */
-ul.plain{list-style:none;margin:0 0 22px;padding:0;display:grid;gap:12px}
+ul.plain{list-style:none;margin:0 0 18px;padding:0;display:grid;gap:4px}
 ul.plain>li{display:flex;gap:12px}
 ul.plain>li::before{content:"";flex:0 0 8px;height:8px;margin-top:.65em;border-radius:50%;background:var(--ink)}
 
@@ -270,6 +275,13 @@ footer p{margin:0;font-size:14px;color:var(--ink-soft)}
 table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:15px;margin:0 0 18px}
 th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--rule);vertical-align:top;overflow-wrap:anywhere}
 th{font-weight:700;font-size:13.5px;color:var(--ink-soft)}
+/* сравнение «было — стало»: строки — что меряли, последняя колонка — итог */
+table.compare{margin:4px 0 20px}
+table.compare thead th{font-size:13px;letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--rule)}
+table.compare thead th:first-child{width:30%}
+table.compare tbody th{font-size:inherit;font-weight:600;color:var(--ink)}
+table.compare td:last-child{font-weight:700;color:#136448}
+table.compare tr:last-child>*{border-bottom:0}
 
 /* ---------- узкие экраны: круги не наезжают на текст ---------- */
 @media (max-width:600px){
